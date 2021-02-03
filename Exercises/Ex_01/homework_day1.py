@@ -14,6 +14,16 @@ animalia  = "data/animalia.fasta" #(Mus musculus)
 
 
 def aa_counter(data):
+    '''
+    Function to go over every input line, decide wether its a name or not,
+    count the aas in the sequence and its length for each protein.
+
+    :param data: fasta data sequence
+    :return:
+        collections.Counter(counted_values) : total counted aas in the genome
+        names : names of all the ind. proteins
+        counts : aas counts of all the ind. proteins
+    '''
     counted_values = ""
     names = []
     counts = []
@@ -32,6 +42,12 @@ def aa_counter(data):
 
 
 def plot_aminoacid_histogram(as_counter):
+    '''
+    Function to plot the amounts of aas discovered in the given genome
+
+    :param as_counter: total aas count
+    :return: histogram
+    '''
     aminoacids = ['G', 'P', 'A', 'V', 'L', 'I', 'M', 'C', 'F', 'Y', 'W', 'H', 'K', 'R', 'Q', 'N', 'E', 'D', 'S', 'T']
     aminoacid_count = []
     for aminoacid in aminoacids:
@@ -59,6 +75,13 @@ def create_csv(aas):
 
 
 def calc_protein_attributs(full_names, as_counts, organism):
+    '''
+
+    :param full_names: the list with the full names taken from the fasta set
+    :param as_counts: The amino acid counts for each protein
+    :param organism: the name of the inspected organism
+    :return: Dataframe with all the protein names, their aas count and total length
+    '''
     protein_names = []
     amino_acid_count = []
     empty_counter = collections.Counter('')
