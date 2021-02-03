@@ -91,8 +91,13 @@ def plot_hydro_avg(sequence, hydro_avg, window_length):
         )
 
     title = protein_name + ' average amino acid hydropathy over ' + str(window_length) + ' aas'
-    fig.update_layout(title_text=title, title_x=0.5, title_font_size=32, font_size=22)
+    fig.update_layout(title_text=title, title_x=0.5, title_font_size=42, font_size=18)
+    fig.update_layout(
+        xaxis_title="Position in the sequence",
+        yaxis_title="Hydropathy",
+    )
     fig.update_layout(template='plotly_dark')
+
     fig.show()
 
 
@@ -102,7 +107,7 @@ if __name__ == '__main__':
     parser.add_argument("--entry_identifier", help="The identity of the Protein (position in uniport ds)", type=str, default="NaN", required=True)
     parser.add_argument("--protein_name", help="Name of the protein", type=str, default="NaN", required=True)
     parser.add_argument("--window_length", help="Length of the sliding window.", type=int, required=True)
-    parser.add_argument("--directory_amino_acid_properties", help="where is the file @ bro?",type=str, required=True)
+    parser.add_argument("--directory_aa_prop", help="where is the file @ bro?",type=str, required=True)
     args = parser.parse_args()
 
     as_prop = args.directory_amino_acid_properties
@@ -115,4 +120,4 @@ if __name__ == '__main__':
     hydro_avg = calc_hydro_avg(gpcr_sequence, dict_aa_prop, window_length)
     plot_hydro_avg(gpcr_sequence, hydro_avg, window_length)
 
-    # python homework_paulkittner_02.py --entry_identifier "P32249" --protein_name "human_gpcr" --window_length 5 --directory_amino_acid_properties "./data/amino_acid_properties.csv"
+    # python homework_paulkittner_02.py --entry_identifier "P32249" --protein_name "human_gpcr" --window_length 5 --directory_aa_prop "./data/amino_acid_properties.csv"
