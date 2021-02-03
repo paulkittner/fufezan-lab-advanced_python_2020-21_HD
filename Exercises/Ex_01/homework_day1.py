@@ -40,7 +40,6 @@ def aa_counter(data):
 
     return collections.Counter(counted_values), names, counts
 
-
 def plot_aminoacid_histogram(as_counter):
     '''
     Function to plot the amounts of aas discovered in the given genome
@@ -48,7 +47,11 @@ def plot_aminoacid_histogram(as_counter):
     :param as_counter: total aas count
     :return: histogram
     '''
-    aminoacids = ['G', 'P', 'A', 'V', 'L', 'I', 'M', 'C', 'F', 'Y', 'W', 'H', 'K', 'R', 'Q', 'N', 'E', 'D', 'S', 'T']
+    # aminoacids = ['G', 'P', 'A', 'V', 'L', 'I', 'M', 'C', 'F', 'Y', 'W', 'H', 'K', 'R', 'Q', 'N', 'E', 'D', 'S', 'T']
+    # bad weil hard code:
+    # besser wenn so:
+    aminoacids=list(as_counter.keys())
+
     aminoacid_count = []
     for aminoacid in aminoacids:
         aminoacid_count.append(as_counter[aminoacid])
