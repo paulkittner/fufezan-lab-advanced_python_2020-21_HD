@@ -64,8 +64,8 @@ def calc_hydro_avg(seq, hyrdo_dict, window_length):
     '''
     avg_hydro = []
     window_entries = deque([], window_length)
-    for aa in seq:
-        hydropathy_value = hyrdo_dict[aa]
+    for aminoacid in seq:
+        hydropathy_value = hyrdo_dict[aminoacid]
         window_entries.append(hydropathy_value)
         avg_hydro.append(sum(window_entries) /len(window_entries))
 
