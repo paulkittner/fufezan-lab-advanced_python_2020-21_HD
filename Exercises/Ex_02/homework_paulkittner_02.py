@@ -86,18 +86,18 @@ def plot_hydro_avg(sequence, hydro_avg, window_length):
                 y = hydro_avg
             )
         )
-    fig = go.Figure(
-        data=data,
-        )
-
+    fig = go.Figure(data=data)
     title = protein_name + ' average amino acid hydropathy over ' + str(window_length) + ' aas'
-    fig.update_layout(title_text=title, title_x=0.5, title_font_size=42, font_size=18)
+    fig.update_layout(
+        title_text=title,
+        title_x=0.5,
+        title_font_size=42,
+        font_size=18)
     fig.update_layout(
         xaxis_title="Position in the sequence",
         yaxis_title="Hydropathy",
     )
     fig.update_layout(template='plotly_dark')
-
     fig.show()
 
 
