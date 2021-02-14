@@ -31,7 +31,7 @@ class Protein_attributions():
         r = requests.get(url)
         seq = ""
         seq_list = []
-        protein_csv = './data/' + self.entry_identifier + '.fasta'
+        protein_csv = '../data/' + self.entry_identifier + '.fasta'
 
         with open(protein_csv, 'wb') as file:
             file.write(r.content)
@@ -43,8 +43,9 @@ class Protein_attributions():
                     seq = seq + line[0]
                 else:
                     protein_name = re.search('HUMAN(.+?)OS=', str(line))
-                    self.protein_name = (protein_name.group(1))
-                    seq_list.append(seq)
+                    if protein_name:
+                        self.protein_name = (protein_name.group(1))
+                        seq_list.append(seq)
                     seq = ""
         self.seq = seq
         return seq
@@ -55,7 +56,7 @@ class Protein_attributions():
         aa_pi_values = df['hydropathy index (Kyte-Doolittle method)'].to_numpy()
         hydropathy = dict(zip(aa_names, aa_pi_values))
         self.hydro_dict = hydropathy
-
+        print(hydropathy)
         return hydropathy
 
 
@@ -70,11 +71,13 @@ class Protein_attributions():
         '''
         avg_hydro = []
         window_entries = deque([], window_length)
+        print(self.seq)
         for aminoacid in self.seq:
             hydropathy_value = self.hydro_dict[aminoacid]
             window_entries.append(hydropathy_value)
             avg_hydro.append(sum(window_entries) /len(window_entries))
 
+        print(avg_hydro)
         return avg_hydro
 
     def plot_hydro_avg(self, hydro_avg, window_length):
@@ -122,7 +125,7 @@ if __name__ == '__main__':
     # protein_name = args.protein_name
 
     p1 = Protein_attributions("P32249")
-    gpcr_sequence = p1.get_sequence()
+
     dict_aa_prop = p1.get_hydropathy_dict(as_prop)
     hydro_avg = p1.calc_hydro_avg(window_length)
     p1.plot_hydro_avg(hydro_avg, window_length)
