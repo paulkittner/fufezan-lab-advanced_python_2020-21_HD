@@ -10,6 +10,7 @@ import re
 
 class Protein_attributions():
     """
+    A cool class containting all the functions need to solve this problem
     """
     def __init__(self, entry_identifier):
         self.entry_identifier = entry_identifier
@@ -19,6 +20,10 @@ class Protein_attributions():
 
     def get_sequence(self):
         '''
+        A function get the sequence of the given Protein from uniport via its unique identity code.
+        If will pull the fasta file from uniport and save as is, as a .csv file
+        It will proceed to open the file and extract the protein sequence within in the fasta file,
+        along with its name.
 
         :param entry_identifier: the identity code of the protein you would like to analyse
                                 (the specific position in the uniport databank)
@@ -51,6 +56,14 @@ class Protein_attributions():
         return seq
 
     def get_hydropathy_dict(self, file):
+        """
+        This will load the hyrdopathy csv file.
+        It will pull the amino acid names alond with their pi value
+        and zip them together in a dict.
+
+        :param file: file location of the csv containing all the protein attributes
+        :return: returns a dic with aa_names and aa_pi_value pairs
+        """
         df = pd.read_csv(file)
         aa_names = df['1-letter code'].tolist()
         aa_pi_values = df['hydropathy index (Kyte-Doolittle method)'].to_numpy()
@@ -62,6 +75,8 @@ class Protein_attributions():
 
     def calc_hydro_avg(self, window_length):
         '''
+        will smoothen the hydro values, by caluclating
+        the average of hydro values over a given window_length
 
         :param seq: The sequence of the selected protein
         :param hyrdo_dict: dictonary with the aas single letter names and their corresponing hydropathy
@@ -82,6 +97,8 @@ class Protein_attributions():
 
     def plot_hydro_avg(self, hydro_avg, window_length):
         '''
+        This function will make a nice plot out of the protein hydrop.
+        With beeing the hyrdop. and x the location of the aa in the protein
 
         :param sequence: The sequence of the selected protein
         :param hydro_avg: average hydropathy for every AS at their position
